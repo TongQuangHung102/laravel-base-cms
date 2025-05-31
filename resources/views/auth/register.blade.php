@@ -9,6 +9,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="card-header">{{ __('Đăng ký tài khoản') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
