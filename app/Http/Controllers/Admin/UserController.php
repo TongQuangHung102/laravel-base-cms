@@ -18,6 +18,13 @@ class UserController extends Controller
         return view('admin.listuser', compact('users'));
     }
 
+    // public function index()
+    // {
+    //     $users = User::whereNull('deleted_at')->paginate(2);
+    //     return view('admin.listuser', compact('users'));
+    // }
+
+
     public function detail($id)
     {
         $user = User::findOrFail($id);
@@ -57,5 +64,32 @@ class UserController extends Controller
         // }
         $user->save();
         return redirect()->route('listuser')->with('success', 'Người dùng đã được cập nhật thành công!');
+    }
+
+    public function softDelete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete(); // Gọi soft delete
+        return redirect()->route('listuser')->with('success', 'Người dùng đã được xóa mềm thành công!');
+    }
+
+    public function trash()
+    {
+        $users = User::onlyTrashed()->paginate(2);
+        return view('admin.trashuser', compact('users'));
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->route('trashuser')->with('success', 'Khôi phục người dùng thành công!');
+    }
+
+    public function forceDelete($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
+        return redirect()->route('trashuser')->with('success', 'Người dùng đã bị xóa vĩnh viễn khỏi hệ thống!');
     }
 }

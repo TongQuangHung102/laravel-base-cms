@@ -18,3 +18,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/admin/listuser', [UserController::class, 'index'])->name('listuser');
 Route::get('/admin/detailuser/{id}', [UserController::class, 'detail'])->name('detailuser');
 Route::put('/admin/updateuser/{id}', [UserController::class, 'update'])->name('updateuser');
+
+Route::delete('/admin/deleteuser/{id}', [UserController::class, 'softDelete'])->name('deletesoftuser');
+Route::get('/admin/trash', [UserController::class, 'trash'])->name('trashuser');
+Route::post('/admin/restoreuser/{id}', [UserController::class, 'restore'])->name('restoreuser');
+Route::delete('/admin/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('forceDeleteUser');

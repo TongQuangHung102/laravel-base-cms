@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes; // Thêm SoftDeletes vào đây
-
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
