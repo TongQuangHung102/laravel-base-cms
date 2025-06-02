@@ -31,10 +31,10 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $page = Page::findOrFail($id);
+    public function show($id)
+    {
+        $page = Page::findOrFail($id);
 
-    //     return view('frontend.pages.show', compact('page'));
-    // }
+        return view('frontend.pages.show', compact('page'));
+    }
 }
