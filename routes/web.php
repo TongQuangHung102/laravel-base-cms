@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\PageController;
-
+use App\Http\Controllers\Frontend\PostController;
+use App\Http\Controllers\Frontend\CommentController;
 // Route khi chạy chương trình sẽ chạy vào view nào.
 Route::get('/', function () {
     return view('frontend.home');
@@ -29,3 +30,7 @@ Route::delete('/admin/forcedeleteuser/{id}', [UserController::class, 'forceDelet
 
 Route::get('/page', [PageController::class, 'index'])->name('listpage');
 Route::get('/page/{id}', [PageController::class, 'show'])->name('detailpage');
+
+Route::get('/post', [PostController::class, 'index'])->name('listpost');
+Route::get('/post/{id}', [PostController::class, 'show'])->name('detailpost');
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

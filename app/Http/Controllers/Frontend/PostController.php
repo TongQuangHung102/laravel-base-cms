@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Models\Post; // Import model Page
+use Illuminate\Contracts\View\View;
+
+class PostController extends Controller
+{
+    /**
+     * Display a listing of the pages.
+     * Người dùng chưa đăng nhập cũng có thể xem trang danh sách.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
+
+        return view('frontend.posts.index', compact('posts'));
+    }
+
+    /**
+     * Display the specified page.
+     * Người dùng chưa đăng nhập cũng có thể xem trang chi tiết.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $post = Post::with(['comments.user'])->findOrFail($id);
+      
+        return view('frontend.posts.show', compact('post'));
+    }
+}
