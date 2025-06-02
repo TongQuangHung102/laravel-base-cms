@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Frontend\PageController;
 
 // Route khi chạy chương trình sẽ chạy vào view nào.
 Route::get('/', function () {
-    return view('home');
+    return view('frontend.home');
 });
 
 // Route get, post có uri /register
@@ -25,3 +26,6 @@ Route::delete('/admin/deleteuser/{id}', [UserController::class, 'softDelete'])->
 Route::get('/admin/trash', [UserController::class, 'trash'])->name('trashuser');
 Route::post('/admin/restoreuser/{id}', [UserController::class, 'restore'])->name('restoreuser');
 Route::delete('/admin/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('forceDeleteUser');
+
+Route::get('/page', [PageController::class, 'index'])->name('listpage');
+Route::get('/page/{id}', [PageController::class, 'show'])->name('detailpage');
