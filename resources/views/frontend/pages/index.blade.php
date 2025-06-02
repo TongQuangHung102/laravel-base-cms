@@ -16,6 +16,7 @@
                 <div>
                     <h5 class="mb-1 font-weight-bold">{{ $page->title }}</h5>
                     <p class="mb-0">{!! Str::limit(strip_tags($page->content), 150, '...') !!}</p>
+                    <a href="{{ route('detailpage', $page->id) }}" class="btn btn-primary btn-sm">Read More</a>
                 </div>
             </div>
         @endforeach
