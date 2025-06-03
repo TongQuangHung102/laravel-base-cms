@@ -13,28 +13,14 @@
             </div>
         @endif
 
-        {{-- @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Lỗi!</strong> Vui lòng kiểm tra lại thông tin.
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif --}}
-
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">Thông tin người dùng</h5>
             </div>
             <div class="card-body">
-                {{-- Đảm bảo action trỏ đúng đến route updateuser của bạn --}}
                 <form action="{{ route('updateuser', $user->id) }}" method="POST">
                     @csrf
-                    @method('PUT') {{-- Sử dụng phương thức PUT cho việc cập nhật --}}
-
+                    @method('PUT') 
                     <div class="mb-3">
                         <label for="name" class="form-label">Tên hiển thị:</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"

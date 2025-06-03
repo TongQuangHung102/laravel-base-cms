@@ -13,21 +13,21 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
-        // if (!auth()->check()) {
-        //     return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để bình luận.');
-        // }
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để bình luận.');
+        }
 
-        // $request->validate([
-        //     'post_id' => 'required|exists:posts,id',
-        //     'content' => 'required|string|max:1000',
-        // ]);
+        $request->validate([
+            'post_id' => 'required|exists:posts,id',
+            'content' => 'required|string|max:1000',
+        ]);
 
-        // Comment::create([
-        //     'user_id' => auth()->id(),
-        //     'post_id' => $request->post_id,
-        //     'content' => $request->content,
-        // ]);
+        Comment::create([
+            'user_id' => Auth::id(),
+            'post_id' => $request->post_id,
+            'content' => $request->content,
+        ]);
 
-        // return redirect()->back()->with('success', 'Bình luận đã được gửi.');
+        return redirect()->back()->with('success', 'Bình luận đã được gửi.');
     }
 }

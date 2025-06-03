@@ -92,4 +92,26 @@ class UserController extends Controller
         $user->forceDelete();
         return redirect()->route('trashuser')->with('success', 'Người dùng đã bị xóa vĩnh viễn khỏi hệ thống!');
     }
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('auth.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'gender' => 'nullable|in:male,female,other',
+            'birthdate' => 'nullable|date',
+            'address' => 'nullable|string|max:255',
+            'slogan' => 'nullable|string|max:255',
+        ]);
+
+        $user->update($request->only('name', 'gender', 'birthdate', 'address', 'slogan'));
+
+        return redirect()->route('profile')->with('success', 'Cập nhật thông tin thành công!');
+    }
 }

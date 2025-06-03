@@ -9,7 +9,7 @@ use App\Http\Controllers\Frontend\CommentController;
 // Route khi chạy chương trình sẽ chạy vào view nào.
 Route::get('/', function () {
     return view('frontend.home');
-});
+})->name('home');
 
 // Route get, post có uri /register
 // 1. RegisterController với class showRegistrationForm và có name Route: register. (get) --> Để hiện thị form đăng ký.
@@ -34,3 +34,10 @@ Route::get('/page/{id}', [PageController::class, 'show'])->name('detailpage');
 Route::get('/post', [PostController::class, 'index'])->name('listpost');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('detailpost');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');

@@ -30,8 +30,8 @@
 
         <div class="mt-4">
             <h5>Viết bình luận</h5>
-            {{-- action="{{ route('comments.store') }}"  --}}
-            <form method="POST">
+
+            <form method="POST" action="{{ route('comments.store') }}">
                 @csrf
                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                 <div class="form-group">
@@ -47,7 +47,7 @@
                 <div class="border rounded p-3 mb-3">
                     <strong>{{ $comment->user->username }}</strong>
                     <span class="text-muted" style="font-size: 0.85rem;">
-                        - {{ $comment->created_at->format('H:i d/m/Y') }}
+                        - {{ $comment->created_at->format('Y-m-d') }}
                     </span>
                     <p class="mb-0 mt-2">{{ $comment->content }}</p>
                 </div>
