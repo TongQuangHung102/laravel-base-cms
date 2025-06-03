@@ -59,6 +59,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('listpage') }}">{{ __('Page') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('listpost') }}">{{ __('Post') }}</a>
+                            </li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -88,6 +91,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('listpage') }}">{{ __('Page') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('listpost') }}">{{ __('Post') }}</a>
                             </li>
                         @endguest
                     </ul>
