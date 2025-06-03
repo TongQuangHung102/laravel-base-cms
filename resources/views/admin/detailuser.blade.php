@@ -20,7 +20,7 @@
             <div class="card-body">
                 <form action="{{ route('updateuser', $user->id) }}" method="POST">
                     @csrf
-                    @method('PUT') 
+                    @method('PUT')
                     <div class="mb-3">
                         <label for="name" class="form-label">Tên hiển thị:</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -142,13 +142,14 @@
                             name="password_confirmation">
                     </div> --}}
                     {{-- --------------------------------- --}}
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{{ route('listuser') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                        
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save"></i> Cập nhật
                         </button>
-                        <a href="{{ route('listuser') }}" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left"></i> Quay lại danh sách
-                        </a>
                     </div>
                 </form>
             </div>

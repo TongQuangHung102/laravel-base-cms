@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PostController;
@@ -40,5 +41,5 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');

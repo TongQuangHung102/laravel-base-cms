@@ -23,7 +23,15 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
-        $this->loginService->attemptLogin($credentials);
+        $user = $this->loginService->attemptLogin($credentials);
+        if ($user) {
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin/listuser');
+            } elseif ($user->role === 'user') {
+                return redirect()->intended('/page');
+            }
+            return redirect()->intended('/');
+        }
         return redirect()->intended('/');
     }
 
