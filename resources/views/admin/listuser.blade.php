@@ -36,7 +36,7 @@
                         <td>
                             <a href="{{ route('detailuser', $user->id) }}" class="btn btn-sm btn-success text-white">Chỉnh
                                 sửa</a>
-                            <form action="{{ route('deletesoftuser', $user->id) }}" method="POST" style="display:inline;"
+                            <form action="{{ route('deleteSoftUser', $user->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');">
                                 @csrf
                                 @method('DELETE')

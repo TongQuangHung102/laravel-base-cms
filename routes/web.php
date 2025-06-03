@@ -24,7 +24,7 @@ Route::get('/admin/detailuser/{id}', [UserController::class, 'detail'])->name('d
 Route::put('/admin/updateuser/{id}', [UserController::class, 'update'])->name('updateuser');
 
 
-Route::delete('/admin/deleteuser/{id}', [UserController::class, 'softDelete'])->name('deletesoftuser');
+Route::delete('/admin/deleteuser/{id}', [UserController::class, 'softDelete'])->name('deleteSoftUser');
 Route::get('/admin/trash', [UserController::class, 'trash'])->name('trashuser');
 Route::post('/admin/restoreuser/{id}', [UserController::class, 'restore'])->name('restoreuser');
 Route::delete('/admin/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('forceDeleteUser');
@@ -36,9 +36,9 @@ Route::get('/post', [PostController::class, 'index'])->name('listpost');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('detailpost');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
