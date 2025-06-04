@@ -45,9 +45,9 @@
             <h5>Bình luận ({{ $post->comments->count() }})</h5>
             @forelse ($post->comments as $comment)
                 <div class="border rounded p-3 mb-3">
-                    <strong>{{ $comment->user->username }}</strong>
+                    <strong>{{ $comment->user->name }}</strong>
                     <span class="text-muted" style="font-size: 0.85rem;">
-                        - {{ $comment->created_at->format('Y-m-d') }}
+                        - {{ $comment->created_at->format('m-d-Y') }}
                     </span>
                     <p class="mb-0 mt-2">{{ $comment->content }}</p>
                 </div>

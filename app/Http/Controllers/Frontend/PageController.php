@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Models\Page; // Import model Page
+use App\Models\Page;
 use Illuminate\Contracts\View\View;
 
 class PageController extends Controller
@@ -21,7 +21,9 @@ class PageController extends Controller
 
         $pages = Page::orderBy('created_at', 'desc')->paginate(3);
 
-        return view('frontend.pages.index', compact('pages'));
+        $view = view('frontend.pages.index', compact('pages'));
+
+        return response($view);
     }
 
     /**
@@ -34,7 +36,7 @@ class PageController extends Controller
     public function show($id)
     {
         $page = Page::findOrFail($id);
-
-        return view('frontend.pages.show', compact('page'));
+        $view = view('frontend.pages.show', compact('page'));
+        return response($view);
     }
 }

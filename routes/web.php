@@ -30,12 +30,14 @@ Route::get('/admin/trash', [UserController::class, 'trash'])->name('trashuser');
 Route::post('/admin/restoreuser/{id}', [UserController::class, 'restore'])->name('restoreuser');
 Route::delete('/admin/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('forceDeleteUser');
 
-Route::get('/page', [PageController::class, 'index'])->name('listpage');
-Route::get('/page/{id}', [PageController::class, 'show'])->name('detailpage');
 
-Route::get('/post', [PostController::class, 'index'])->name('listpost');
-Route::get('/post/{id}', [PostController::class, 'show'])->name('detailpost');
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('/page', [PageController::class, 'index'])->name('pages.index');
+Route::get('/page/{id}', [PageController::class, 'show'])->name('pages.show');
+
+
+Route::get('/post', [PostController::class, 'index'])->name('posts.index');
+Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::post('/comment', [CommentController::class, 'store'])->name('comments.store');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);

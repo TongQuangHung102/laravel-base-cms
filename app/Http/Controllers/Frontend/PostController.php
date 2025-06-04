@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Models\Post; // Import model Page
+use App\Models\Post;
 use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
@@ -20,8 +20,8 @@ class PostController extends Controller
     {
 
         $posts = Post::orderBy('created_at', 'desc')->paginate(3);
-
-        return view('frontend.posts.index', compact('posts'));
+        $view = view('frontend.posts.index', compact('posts'));
+        return response($view);
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::with(['comments.user'])->findOrFail($id);
-      
-        return view('frontend.posts.show', compact('post'));
+        $view = view('frontend.posts.show', compact('post'));
+        return response($view);
     }
 }
