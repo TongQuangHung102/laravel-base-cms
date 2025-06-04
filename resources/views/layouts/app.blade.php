@@ -9,14 +9,14 @@
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <style>
         .nav-item .nav-link.active {
             font-weight: bold;
@@ -33,12 +33,11 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                {{-- aria-label="{{ __('Toggle navigation') }}" --}}
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
 
@@ -48,21 +47,21 @@
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}"
-                                    href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    href="{{ route('login') }}">{{ 'Login' }}</a>
                             </li>
                             <li class="nav-item">
                                 @if (Route::has('register'))
                                     <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}"
-                                        href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        href="{{ route('register') }}">{{ 'Register' }}</a>
                                 @endif
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('listpage') || request()->routeIs('pages.*') ? 'active' : '' }}"
-                                    href="{{ route('pages.index') }}">{{ __('Page') }}</a>
+                                    href="{{ route('pages.index') }}">{{ 'Page' }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}"
-                                    href="{{ route('posts.index') }}">{{ __('Post') }}</a>
+                                    href="{{ route('posts.index') }}">{{ 'Post' }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
@@ -76,13 +75,13 @@
                                     <li>
                                         <a class="dropdown-item {{ request()->routeIs('profile') ? 'active' : '' }}"
                                             href="{{ route('profile') }}">
-                                            {{ __('Profile') }}
+                                            {{ 'Profile' }}
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ 'Logout' }}
                                         </a>
                                     </li>
                                 </ul>
@@ -94,16 +93,16 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('pages.*') ? 'active' : '' }}"
-                                    href="{{ route('pages.index') }}">{{ __('Page') }}</a>
+                                    href="{{ route('pages.index') }}">{{ 'Page' }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}"
-                                    href="{{ route('posts.index') }}">{{ __('Post') }}</a>
+                                    href="{{ route('posts.index') }}">{{ 'Post' }}</a>
                             </li>
                             @if (Auth::check() && Auth::user()->role === 'admin')
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('listuser') ? 'active' : '' }}"
-                                        href="{{ route('listuser') }}">{{ __('User') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                                        href="{{ route('users.listUser') }}">{{ 'User' }}</a>
                                 </li>
                             @endif
                         @endguest

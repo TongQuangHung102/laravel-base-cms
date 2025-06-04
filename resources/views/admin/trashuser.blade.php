@@ -13,7 +13,7 @@
         @endif
 
         <div class="mb-3 text-end">
-            <a href="{{ route('listuser') }}" class="btn btn-secondary">
+            <a href="{{ route('users.listUser') }}" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Quay lại danh sách
             </a>
         </div>
@@ -36,14 +36,14 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->deleted_at->format('d/m/Y') }}</td>
                         <td>
-                            <form action="{{ route('restoreuser', $user->id) }}" method="POST" style="display:inline;"
+                            <form action="{{ route('users.restoreUser', $user->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Bạn có muốn khôi phục người dùng này không?');">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-success">
                                     <i class="bi bi-arrow-clockwise"></i> Khôi phục
                                 </button>
                             </form>
-                            <form action="{{ route('forceDeleteUser', $user->id) }}" method="POST" style="display:inline;"
+                            <form action="{{ route('users.forceDeleteUser', $user->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn người dùng này? Thao tác này không thể hoàn tác!');">
                                 @csrf
                                 @method('DELETE')
