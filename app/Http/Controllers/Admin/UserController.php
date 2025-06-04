@@ -9,21 +9,21 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Services\UserService;
+use App\Http\Requests\Admin\UserRequest;
 
 class UserController extends Controller
 {
+    protected $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     public function index()
     {
         $users = User::paginate(2);
         return view('admin.listuser', compact('users'));
     }
-
-    // public function index()
-    // {
-    //     $users = User::whereNull('deleted_at')->paginate(2);
-    //     return view('admin.listuser', compact('users'));
-    // }
-
 
     public function detail($id)
     {
@@ -31,38 +31,9 @@ class UserController extends Controller
         return view('admin.detailuser', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'required|string|in:user,admin',
-            'gender' => 'nullable|string|in:male,female,other',
-            'birthdate' => 'nullable|date',
-            'address' => 'nullable|string|max:255',
-            'slogan' => 'nullable|string|max:255',
-            // 'password' => 'nullable|string|min:8|confirmed', 
-        ]);
-
-
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->role = $request->role;
-        $user->gender = $request->gender;
-        $user->birthdate = $request->birthdate;
-        $user->address = $request->address;
-        $user->slogan = $request->slogan;
-
-
-        // if ($request->filled('password')) {
-        //     $user->password = Hash::make($request->password);
-        // }
-        $user->save();
+        $this->userService->update($request->validated(), $id);
         return redirect()->route('listuser')->with('success', 'Người dùng đã được cập nhật thành công!');
     }
 
@@ -91,27 +62,5 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
         $user->forceDelete();
         return redirect()->route('trashuser')->with('success', 'Người dùng đã bị xóa vĩnh viễn khỏi hệ thống!');
-    }
-    public function profile()
-    {
-        $user = Auth::user();
-        return view('auth.profile', compact('user'));
-    }
-
-    public function updateProfile(Request $request)
-    {
-        $user = Auth::user();
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'gender' => 'nullable|in:male,female,other',
-            'birthdate' => 'nullable|date',
-            'address' => 'nullable|string|max:255',
-            'slogan' => 'nullable|string|max:255',
-        ]);
-
-        $user->update($request->only('name', 'gender', 'birthdate', 'address', 'slogan'));
-
-        return redirect()->route('profile')->with('success', 'Cập nhật thông tin thành công!');
     }
 }
