@@ -34,14 +34,14 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $this->userService->update($request->validated(), $id);
-        return redirect()->route('listuser')->with('success', 'Người dùng đã được cập nhật thành công!');
+        return redirect()->route('users.listUser')->with('success', 'Người dùng đã được cập nhật thành công!');
     }
 
     public function softDelete($id)
     {
         $user = User::findOrFail($id);
         $user->delete(); // Gọi soft delete
-        return redirect()->route('listuser')->with('success', 'Người dùng đã được xóa mềm thành công!');
+        return redirect()->route('users.listUser')->with('success', 'Người dùng đã được xóa mềm thành công!');
     }
 
     public function trash()
@@ -54,13 +54,13 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
         $user->restore();
-        return redirect()->route('trashuser')->with('success', 'Khôi phục người dùng thành công!');
+        return redirect()->route('users.trashUser')->with('success', 'Khôi phục người dùng thành công!');
     }
 
     public function forceDelete($id)
     {
         $user = User::withTrashed()->findOrFail($id);
         $user->forceDelete();
-        return redirect()->route('trashuser')->with('success', 'Người dùng đã bị xóa vĩnh viễn khỏi hệ thống!');
+        return redirect()->route('users.trashUser')->with('success', 'Người dùng đã bị xóa vĩnh viễn khỏi hệ thống!');
     }
 }

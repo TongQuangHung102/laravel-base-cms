@@ -18,7 +18,7 @@
                 <h5 class="mb-0">Thông tin người dùng</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('updateuser', $user->id) }}" method="POST">
+                <form action="{{ route('users.updateUser', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -143,7 +143,7 @@
                     </div> --}}
                     {{-- --------------------------------- --}}
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="{{ route('listuser') }}" class="btn btn-secondary">
+                        <a href="{{ route('users.listUser') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Quay lại
                         </a>
                         

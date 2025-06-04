@@ -12,7 +12,7 @@
             </div>
         @endif
         <div class="mb-3 text-end">
-            <a href="{{ route('trashuser') }}" class="btn btn-primary">
+            <a href="{{ route('users.trashUser') }}" class="btn btn-primary">
                 <i class="bi bi-trash3-fill"></i>Danh sách người dùng đã xóa
             </a>
         </div>
@@ -34,9 +34,9 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
                         <td>
-                            <a href="{{ route('detailuser', $user->id) }}" class="btn btn-sm btn-success text-white">Chỉnh
+                            <a href="{{ route('users.detailUser', $user->id) }}" class="btn btn-sm btn-success text-white">Chỉnh
                                 sửa</a>
-                            <form action="{{ route('deleteSoftUser', $user->id) }}" method="POST" style="display:inline;"
+                            <form action="{{ route('users.deleteSoftUser', $user->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');">
                                 @csrf
                                 @method('DELETE')
