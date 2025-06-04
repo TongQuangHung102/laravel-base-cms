@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes; // Thêm SoftDeletes vào đây
+    use HasFactory, Notifiable, SoftDeletes; 
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
@@ -20,14 +20,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'username', // Thêm vào đây
+        'username',
         'email',
         'password',
-        'role',       // Thêm vào đây
-        'gender',     // Thêm vào đây
-        'birthdate',  // Thêm vào đây
-        'address',    // Thêm vào đây
-        'slogan',     // Thêm vào đây
+        'role',       
+        'gender',    
+        'birthdate',  
+        'address',   
+        'slogan',    
     ];
 
     /**
@@ -48,16 +48,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'birthdate' => 'date', // Cast birthdate thành kiểu date
+        'birthdate' => 'date', 
     ];
 
-    // Định nghĩa mối quan hệ với Post (một User có nhiều Post)
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
-    // Định nghĩa mối quan hệ với Comment (một User có nhiều Comment)
     public function comments()
     {
         return $this->hasMany(Comment::class);
