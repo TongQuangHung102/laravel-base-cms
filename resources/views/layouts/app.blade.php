@@ -5,24 +5,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- <title>{{ config('app.name', 'Laravel') }}</title> => Hiển thị ở trên tab của website  --}}
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .nav-item .nav-link.active {
+            font-weight: bold;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,40 +40,42 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}"
+                                    href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             <li class="nav-item">
                                 @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}"
+                                        href="{{ route('register') }}">{{ __('Register') }}</a>
                                 @endif
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listpage') }}">{{ __('Page') }}</a>
+                                <a class="nav-link {{ request()->routeIs('listpage') || request()->routeIs('pages.*') ? 'active' : '' }}"
+                                    href="{{ route('pages.index') }}">{{ __('Page') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listpost') }}">{{ __('Post') }}</a>
+                                <a class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}"
+                                    href="{{ route('posts.index') }}">{{ __('Post') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a id="navbarDropdown"
+                                    class="nav-link dropdown-toggle {{ request()->routeIs('profile') ? 'active' : '' }}"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
-
-                                        <a class="dropdown-item" href="{{ route('profile') }}">
+                                        <a class="dropdown-item {{ request()->routeIs('profile') ? 'active' : '' }}"
+                                            href="{{ route('profile') }}">
                                             {{ __('Profile') }}
                                         </a>
                                     </li>
@@ -90,11 +93,19 @@
                                 </form>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listpage') }}">{{ __('Page') }}</a>
+                                <a class="nav-link {{ request()->routeIs('pages.*') ? 'active' : '' }}"
+                                    href="{{ route('pages.index') }}">{{ __('Page') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listpost') }}">{{ __('Post') }}</a>
+                                <a class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}"
+                                    href="{{ route('posts.index') }}">{{ __('Post') }}</a>
                             </li>
+                            @if (Auth::check() && Auth::user()->role === 'admin')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('listuser') ? 'active' : '' }}"
+                                        href="{{ route('listuser') }}">{{ __('User') }}</a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>

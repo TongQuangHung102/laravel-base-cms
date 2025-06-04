@@ -5,29 +5,25 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\Frontend\CommentRequest;
 use App\Models\Comment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CommentService;
+use Illuminate\Http\RedirectResponse;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    protected $commentService;
+    public function __construct(CommentService $commentService)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để bình luận.');
-        }
+        $this->commentService = $commentService;
+        $this->middleware('auth');
+    }
 
-        $request->validate([
-            'post_id' => 'required|exists:posts,id',
-            'content' => 'required|string|max:1000',
-        ]);
-
-        Comment::create([
-            'user_id' => Auth::id(),
-            'post_id' => $request->post_id,
-            'content' => $request->content,
-        ]);
-
+    public function store(CommentRequest $request): RedirectResponse
+    {
+        $this->commentService->createComment($request->validated());
         return redirect()->back()->with('success', 'Bình luận đã được gửi.');
     }
 }
