@@ -15,7 +15,6 @@
 
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Oops!</strong> Có lỗi xảy ra trong quá trình cập nhật. Vui lòng kiểm tra lại.
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -30,13 +29,10 @@
                 <h5 class="mb-0">{{ $post->title }}</h5>
             </div>
             <div class="card-body">
-                {{-- Form để chỉnh sửa bài viết --}}
-
                 {{-- route('posts.update',  --}}
-                <form action="{{ $post->id }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.update-post', $post->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT') {{-- Sử dụng phương thức PUT cho việc cập nhật --}}
-
+                    @method('PUT')
                     <div class="mb-3">
                         <label for="thumbnail" class="form-label"><strong>Ảnh đại diện:</strong></label>
                         @if ($post->thumbnail)
@@ -85,7 +81,6 @@
                         @enderror
                     </div>
 
-                    {{-- Các trường thông tin chỉ đọc (không cho phép sửa) --}}
                     <div class="mb-3">
                         <label class="form-label"><strong>Ngày tạo:</strong></label>
                         <p class="form-control-static">{{ $post->created_at->format('d/m/Y H:i') }}</p>
