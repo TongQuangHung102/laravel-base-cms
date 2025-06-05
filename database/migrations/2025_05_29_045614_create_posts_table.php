@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('content');
-            $table->string('thumbnail')->nullable(); // ảnh đại diện bài viết nếu có
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

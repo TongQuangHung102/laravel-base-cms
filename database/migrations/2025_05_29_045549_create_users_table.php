@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username')->unique(); // Level 2
+            $table->string('username')->unique(); 
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['registered', 'user', 'admin'])->default('user'); // Level 1
+            $table->enum('role', ['registered', 'user', 'admin'])->default('user');
 
-            // Thông tin nâng cao - Level 1 & 2
+          
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('birthdate')->nullable();
             $table->string('address')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes(); // Level 2
+            $table->softDeletes(); 
         });
     }
 
