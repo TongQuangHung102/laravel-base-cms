@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content'); // html từ tinyMCE
+            $table->text('content');
             $table->string('thumbnail')->nullable();
-            $table->timestamps(); // created_at / updated_at
+            $table->timestamps(); 
         });
     }
 

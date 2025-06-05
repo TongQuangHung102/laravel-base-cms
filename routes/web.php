@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Auth\LoginController;
+
 // Route khi chạy chương trình sẽ chạy vào view nào.
 Route::get('/', function () {
     return view('frontend.home');
@@ -20,15 +21,16 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 // Route put: cập nhập toàn bộ thông tin; Route patch: cập nhập một phần 
-Route::get('/admin/listuser', [UserController::class, 'index'])->name('users.listUser');
-Route::get('/admin/detailuser/{id}', [UserController::class, 'detail'])->name('users.detailUser');
-Route::put('/admin/updateuser/{id}', [UserController::class, 'update'])->name('users.updateUser');
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/listuser', [UserController::class, 'index'])->name('users.listUser');
+    Route::get('/detailuser/{id}', [UserController::class, 'detail'])->name('users.detailUser');
+    Route::put('/updateuser/{id}', [UserController::class, 'update'])->name('users.updateUser');
 
-
-Route::delete('/admin/deleteuser/{id}', [UserController::class, 'softDelete'])->name('users.deleteSoftUser');
-Route::get('/admin/trash', [UserController::class, 'trash'])->name('users.trashUser');
-Route::post('/admin/restoreuser/{id}', [UserController::class, 'restore'])->name('users.restoreUser');
-Route::delete('/admin/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('users.forceDeleteUser');
+    Route::delete('/deleteuser/{id}', [UserController::class, 'softDelete'])->name('users.deleteSoftUser');
+    Route::get('/listtrash', [UserController::class, 'trash'])->name('users.trashUser');
+    Route::post('/restoreuser/{id}', [UserController::class, 'restore'])->name('users.restoreUser');
+    Route::delete('/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('users.forceDeleteUser');
+});
 
 
 Route::get('/page', [PageController::class, 'index'])->name('pages.index');
