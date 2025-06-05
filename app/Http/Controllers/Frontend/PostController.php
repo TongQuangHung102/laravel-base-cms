@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -35,6 +36,14 @@ class PostController extends Controller
     {
         $post = Post::with(['comments.user'])->findOrFail($id);
         $view = view('frontend.posts.show', compact('post'));
+        return response($view);
+    }
+
+    public function myPosts()
+    {
+        $userId = Auth::id();
+        $myPosts = Post::where('user_id', $userId)->paginate(1);
+        $view = view('frontend.posts.my-posts', compact('myPosts'));
         return response($view);
     }
 }

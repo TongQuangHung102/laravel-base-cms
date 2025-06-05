@@ -66,7 +66,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown"
-                                    class="nav-link dropdown-toggle {{ request()->routeIs('profile') ? 'active' : '' }}"
+                                    class="nav-link dropdown-toggle {{ request()->routeIs('profile.*') ? 'active' : '' }}"
                                     href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </a>
@@ -74,7 +74,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
                                         <a class="dropdown-item {{ request()->routeIs('profile') ? 'active' : '' }}"
-                                            href="{{ route('profile') }}">
+                                            href="{{ route('profile.profile') }}">
                                             {{ 'Profile' }}
                                         </a>
                                     </li>
@@ -84,6 +84,16 @@
                                             {{ 'Logout' }}
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item {{ request()->routeIs('posts.my-posts') ? 'active' : '' }}"
+                                            href="{{ route('profile.my-posts') }}">{{ 'Bài viết của tôi' }}
+                                        </a>
+                                    </li>
+
+                                    {{-- <li>
+                                        <a class="dropdown-item {{ request()->routeIs('posts.create') ? 'active' : '' }}"
+                                            href="{{ route('posts.create') }}">{{ 'Create Post' }}</a>
+                                    </li> --}}
                                 </ul>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

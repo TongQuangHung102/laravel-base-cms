@@ -36,7 +36,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 Route::get('/page', [PageController::class, 'index'])->name('pages.index');
 Route::get('/page/{id}', [PageController::class, 'show'])->name('pages.show');
 
-
+Route::get('/post/my-posts', [PostController::class, 'myPosts'])->name('profile.my-posts');
 Route::get('/post', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/comment', [CommentController::class, 'store'])->name('comments.store');
@@ -45,5 +45,5 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.profile');
 Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
