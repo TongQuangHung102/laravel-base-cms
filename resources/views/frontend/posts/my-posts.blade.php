@@ -52,7 +52,7 @@
                         {{-- <td>{{ Str::limit($post->content, 100) }}</td> --}}
                         <td>{{ $post->created_at->format('d/m/Y') }}</td>
                         <td>
-                            <a href="{{ route('pages.show', $post->id) }}" class="btn btn-sm btn-success text-white">Chỉnh
+                            <a href="{{ route('profile.my-post-show', $post->id) }}" class="btn btn-sm btn-success text-white">Chỉnh
                                 sửa</a>
                             <form action="{{ route('pages.show', $post->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">

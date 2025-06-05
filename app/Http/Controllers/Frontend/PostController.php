@@ -46,4 +46,10 @@ class PostController extends Controller
         $view = view('frontend.posts.my-posts', compact('myPosts'));
         return response($view);
     }
+    public function myPostShow($id)
+    {
+        $post = Post::findOrFail($id);
+        $view = view('frontend.posts.my-post-show', compact('post'));
+        return response($view);
+    }
 }

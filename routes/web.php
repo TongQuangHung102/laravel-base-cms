@@ -37,6 +37,8 @@ Route::get('/page', [PageController::class, 'index'])->name('pages.index');
 Route::get('/page/{id}', [PageController::class, 'show'])->name('pages.show');
 
 Route::get('/post/my-posts', [PostController::class, 'myPosts'])->name('profile.my-posts');
+Route::get('/post/my-posts/{id}', [PostController::class, 'myPostShow'])->name('profile.my-post-show');
+
 Route::get('/post', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/comment', [CommentController::class, 'store'])->name('comments.store');
