@@ -38,7 +38,9 @@ Route::get('/page/{id}', [PageController::class, 'show'])->name('pages.show');
 
 Route::get('/post/my-posts', [PostController::class, 'myPosts'])->name('profile.my-posts');
 Route::get('/post/my-posts/{id}', [PostController::class, 'myPostShow'])->name('profile.my-post-show');
-Route::put('/post/update-posts/{id}', [PostController::class, 'updatePost'])->name('profile.update-post');
+Route::put('/post/update-post/{id}', [PostController::class, 'updatePost'])->name('profile.update-post');
+Route::get('/post/add-post', [PostController::class, 'showAddForm'])->name('profile.show-add-form');
+Route::post('/post/add-post', [PostController::class, 'store'])->name('profile.store');
 
 Route::get('/post', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');

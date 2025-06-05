@@ -6,6 +6,7 @@ use App\Repositories\PostRepository;
 use App\Models\Post;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostService
 {
@@ -31,9 +32,26 @@ class PostService
             unset($data['thumbnail']);
         }
         if (!$this->postRepository->update($post, $data)) {
-            throw new \Exception('Failed to update post.');
+            throw new \Exception('Có lỗi khi cập nhật bài viết.');
         }
 
+        return $post;
+    }
+
+    public function createPost(array $data): Post
+    {
+        if (isset($data['thumbnail']) && $data['thumbnail'] instanceof UploadedFile) {
+            $originalFileName = $data['thumbnail']->getClientOriginalName();
+            $newFileName = $originalFileName;
+            $path = $data['thumbnail']->storeAs('thumbnails', $newFileName, 'public');
+            $data['thumbnail'] = $path;
+        } else {
+            unset($data['thumbnail']);
+        }
+        $post = $this->postRepository->create($data);
+        if (!$post) {
+            throw new \Exception('Có lỗi khi thêm bài viết.');
+        }
         return $post;
     }
 }

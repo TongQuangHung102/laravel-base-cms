@@ -16,6 +16,7 @@ class UserService
 
     public function update(array $data, $id)
     {
+        /** @var \App\Models\User $user */
         $user = $this->userRepository->findOrFail($id);
         $this->userRepository->update($user, $data);
     }

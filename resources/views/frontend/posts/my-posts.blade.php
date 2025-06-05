@@ -14,7 +14,7 @@
         @endif
         {{-- href="{{ route('pages.show') }}" --}}
         <div class="mb-3 text-end">
-            <a class="btn btn-primary">
+            <a class="btn btn-primary" href="{{ route('profile.show-add-form') }}">
                 <i class="bi bi-plus-circle-fill"></i> Tạo bài viết mới
             </a>
         </div>
@@ -52,7 +52,8 @@
                         {{-- <td>{{ Str::limit($post->content, 100) }}</td> --}}
                         <td>{{ $post->created_at->format('d/m/Y') }}</td>
                         <td>
-                            <a href="{{ route('profile.my-post-show', $post->id) }}" class="btn btn-sm btn-success text-white">Chỉnh
+                            <a href="{{ route('profile.my-post-show', $post->id) }}"
+                                class="btn btn-sm btn-success text-white">Chỉnh
                                 sửa</a>
                             <form action="{{ route('pages.show', $post->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
@@ -74,7 +75,5 @@
         <div class="d-flex justify-content-center">
             {{ $myPosts->links() }}
         </div>
-
-
     </div>
 @endsection

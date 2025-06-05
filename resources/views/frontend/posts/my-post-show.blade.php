@@ -55,8 +55,6 @@
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
-                        <small class="form-text text-muted">Chọn ảnh mới nếu muốn thay đổi ảnh đại diện. (Tối đa 2MB, định
-                            dạng: jpeg, png, jpg, gif, svg)</small>
                     </div>
 
                     <div class="mb-3">
