@@ -8,15 +8,19 @@ use App\Http\Requests;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Frontend\PostRequest;
+use App\Services\PostService;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the pages.
-     * Người dùng chưa đăng nhập cũng có thể xem trang danh sách.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $postService;
+
+
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
     public function index()
     {
 
@@ -25,13 +29,7 @@ class PostController extends Controller
         return response($view);
     }
 
-    /**
-     * Display the specified page.
-     * Người dùng chưa đăng nhập cũng có thể xem trang chi tiết.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $post = Post::with(['comments.user'])->findOrFail($id);
@@ -51,5 +49,26 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $view = view('frontend.posts.my-post-show', compact('post'));
         return response($view);
+    }
+
+    public function updatePost(PostRequest $request, $id)
+    {
+        try {
+
+            $post = Post::findOrFail($id);
+
+
+            $this->postService->updatePost($post, $request->validated());
+
+
+            return redirect()->route('profile.my-post-show', $post->id)
+                ->with('success', 'Bài viết đã được cập nhật thành công!');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+
+            return redirect()->back()->withErrors(['post_not_found' => 'Bài viết không tồn tại.']);
+        } catch (\Exception $e) {
+
+            return redirect()->back()->withErrors(['update_failed' => 'Có lỗi xảy ra khi cập nhật bài viết: ' . $e->getMessage()])->withInput();
+        }
     }
 }
