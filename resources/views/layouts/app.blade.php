@@ -79,21 +79,16 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a class="dropdown-item {{ request()->routeIs('posts.my-posts') ? 'active' : '' }}"
+                                            href="{{ route('profile.my-posts') }}">{{ 'Bài viết của tôi' }}
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ 'Logout' }}
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item {{ request()->routeIs('posts.my-posts') ? 'active' : '' }}"
-                                            href="{{ route('profile.my-posts') }}">{{ 'Bài viết của tôi' }}
-                                        </a>
-                                    </li>
-
-                                    {{-- <li>
-                                        <a class="dropdown-item {{ request()->routeIs('posts.create') ? 'active' : '' }}"
-                                            href="{{ route('posts.create') }}">{{ 'Create Post' }}</a>
-                                    </li> --}}
                                 </ul>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

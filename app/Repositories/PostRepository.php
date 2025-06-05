@@ -23,4 +23,8 @@ class PostRepository
     {
         return $post->update($data);
     }
+    public function create(array $data): Post
+    {
+        return $this->post->create($data);
+    }
 }

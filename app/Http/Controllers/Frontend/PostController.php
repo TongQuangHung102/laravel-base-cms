@@ -54,7 +54,7 @@ class PostController extends Controller
     public function updatePost(PostRequest $request, $id)
     {
         try {
-
+            /** @var \App\Models\Post $post */
             $post = Post::findOrFail($id);
 
 
@@ -69,6 +69,25 @@ class PostController extends Controller
         } catch (\Exception $e) {
 
             return redirect()->back()->withErrors(['update_failed' => 'Có lỗi xảy ra khi cập nhật bài viết: ' . $e->getMessage()])->withInput();
+        }
+    }
+
+    public function showAddForm(): View
+    {
+        return view('frontend.posts.add');
+    }
+
+    public function store(PostRequest $request)
+    {
+        try {
+            $data = $request->validated();
+            $data['user_id'] = Auth::id(); 
+            $post = $this->postService->createPost($data); 
+
+            return redirect()->route('profile.my-post-show', $post->id) 
+                ->with('success', 'Bài viết đã được tạo thành công!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['create_failed' => 'Có lỗi xảy ra khi tạo bài viết: ' . $e->getMessage()])->withInput();
         }
     }
 }
