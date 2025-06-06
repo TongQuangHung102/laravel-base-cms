@@ -16,13 +16,13 @@ class RegisterController extends Controller
         $this->registerService = $registerService;
     }
 
-    // Hiển thị form đăng ký.
+
     public function showRegistrationForm(): View
     {
         return view('auth.register');
     }
 
-    // Xử lý yêu cầu chức năng đăng ký
+
     public function register(RegisterRequest $request)
     {
         $userData = $request->validated();

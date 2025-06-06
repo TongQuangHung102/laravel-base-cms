@@ -20,16 +20,19 @@ class RegisterService
 
     public function registerUser(array $data): User
     {
+        // Mã hóa mật khẩu
         $data['password'] = Hash::make($data['password']);
-        unset($data['role']);
         $user = $this->registerRepository->create($data);
+        // Tìm role mặc định có tên là 'User' trong bảng roles.
         $defaultRole = Role::where('name', 'User')->first();
 
         if ($defaultRole) {
+            // Gắn role mặc định cho user bằng cách thêm 1 bản ghi vào bảng trung gian user_roles.
             $user->roles()->attach($defaultRole->id);
             // Hoặc $user->roles()->syncWithoutDetaching([$defaultRole->id]);
+            // syncWithoutDetaching dùng khi bạn muốn gắn thêm role mà không làm mất các role cũ nếu có.
         } else {
-            Log::error('Default role "user" not found during user registration.');
+            Log::error('Không tìm thấy vai trò mặc định "User" trong quá trình đăng ký người dùng.');
         }
         return $user;
     }

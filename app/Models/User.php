@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes; 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany; 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes; 
+    use HasFactory, Notifiable, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -45,55 +45,52 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'birthdate' => 'date', 
+        'birthdate' => 'date',
     ];
 
-    /**
-     * Get the posts for the user.
-     */
+
+    // 1 User có nhiều Post (HasMany)
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
-    /**
-     * Get the comments for the user.
-     */
+    // 1 User có nhiều Comment (HasMany)
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    /**
-     * The roles that belong to the user.
-     */
+    // Có quan hệ nhiều-nhiều với model khác qua bảng trung gian (user_roles) (BelongsTomany)
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
 
-    /**
-     * Check if the user has a specific role.
-     */
+    // Eager Loading là kỹ thuật tải trước các quan hệ của một model cùng lúc với model chính.
     public function hasRole(string $roleName): bool
     {
+        // Kiểm tra xem quan hệ 'roles' đã được load từ trước chưa (tức là dùng eager loading)
         if ($this->relationLoaded('roles')) {
+            // Nếu đã load rồi, kiểm tra trong collection roles xem có role nào có 'name' đúng $roleName
             return $this->roles->contains('name', $roleName);
         }
+        // Nếu chưa load, thì truy vấn trong DB
         return $this->roles()->where('name', $roleName)->exists();
     }
 
-    /**
-     * Check if the user has a specific permission through their roles.
-     */
     public function hasPermission(string $permissionName): bool
     {
+        // Lặp qua tất cả các vai trò của người dùng
         foreach ($this->roles as $role) {
+            // Nếu permission đã được eager load ở role
             if ($role->relationLoaded('permissions')) {
+                // Kiểm tra xem role này có permission với tên tương ứng không (trong collection)
                 if ($role->permissions->contains('name', $permissionName)) {
                     return true;
                 }
             } else {
+                // Nếu chưa load, thì truy vấn trong DB
                 if ($role->permissions()->where('name', $permissionName)->exists()) {
                     return true;
                 }
