@@ -41,6 +41,7 @@ Route::get('/post/my-posts/{id}', [PostController::class, 'myPostShow'])->name('
 Route::put('/post/update-post/{id}', [PostController::class, 'updatePost'])->name('profile.update-post');
 Route::get('/post/add-post', [PostController::class, 'showAddForm'])->name('profile.show-add-form');
 Route::post('/post/add-post', [PostController::class, 'store'])->name('profile.store');
+Route::delete('post/deleteuser/{id}', [PostController::class, 'forceDelete'])->name('profile.forceDelete');
 
 Route::get('/post', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
