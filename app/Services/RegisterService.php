@@ -32,7 +32,7 @@ class RegisterService
             // Hoặc $user->roles()->syncWithoutDetaching([$defaultRole->id]);
             // syncWithoutDetaching dùng khi bạn muốn gắn thêm role mà không làm mất các role cũ nếu có.
         } else {
-            Log::error('Không tìm thấy vai trò mặc định "u  ser" trong quá trình đăng ký người dùng.');
+            Log::error('Không tìm thấy vai trò mặc định "user" trong quá trình đăng ký người dùng.');
         }
         return $user;
     }

@@ -32,6 +32,6 @@ class ProfileController extends Controller
         $user = Auth::user();
         $this->profileService->updateProfile($user, $userData);
 
-        return redirect()->route('profile')->with('success', 'Cập nhật thông tin thành công!');
+        return redirect()->route('profile.profile')->with('success', 'Cập nhật thông tin thành công!');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\Role;
 
 class ProfileRequest extends FormRequest
 {
@@ -17,6 +18,7 @@ class ProfileRequest extends FormRequest
     {
         $userId = Auth::id();
         $user = Auth::user();
+
         $rules = [
             'name' => 'required|string|max:255',
             'gender' => 'nullable|in:male,female,other',
@@ -25,17 +27,10 @@ class ProfileRequest extends FormRequest
             'slogan' => 'nullable|string|max:255',
             // 'password' => 'nullable|string|min:8|confirmed',
         ];
-
-        if ($user && $user->role === 'admin') {
+        if ($user && $user->hasRole('admin')) {
             $rules['username'] = ['required', 'string', 'max:255', Rule::unique('users')->ignore($userId)];
             $rules['email'] = ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($userId)];
-            $rules['role'] = ['required', 'string', Rule::in(['registered', 'user', 'admin'])];
-        } else {
-            $rules['username'] = ['nullable', 'string', 'max:255', Rule::unique('users')->ignore($userId)];
-            $rules['email'] = ['nullable', 'string', 'email', 'max:255', Rule::unique('users')->ignore($userId)];
         }
-
-
         return $rules;
     }
     public function messages(): array
@@ -43,8 +38,6 @@ class ProfileRequest extends FormRequest
         return [
             'username.unique' => 'Tên người dùng này đã tồn tại.',
             'email.unique' => 'Email này đã tồn tại.',
-            'role.required' => 'Vai trò không được để trống.',
-            'role.in' => 'Vai trò không hợp lệ.',
         ];
     }
 }

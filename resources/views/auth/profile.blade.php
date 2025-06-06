@@ -34,34 +34,24 @@
                     </div>
 
 
+                    {{-- Input cho Tên đăng nhập (Username) --}}
                     <div class="mb-3">
                         <label class="form-label">Tên đăng nhập:</label>
-                        @if (Auth::user()->role === 'admin')
+                        @if (Auth::user()->hasRole('admin'))
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
                                 name="username" value="{{ old('username', $user->username) }}" required>
-                            {{-- @error('username')
-                                <div class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror --}}
                         @else
                             <input type="text" class="form-control" value="{{ $user->username }}" readonly>
-
                             <input type="hidden" name="username" value="{{ $user->username }}">
                         @endif
                     </div>
 
-
+                    {{-- Input cho Email --}}
                     <div class="mb-3">
                         <label class="form-label">Email:</label>
-                        @if (Auth::user()->role === 'admin')
+                        @if (Auth::user()->hasRole('admin'))
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email', $user->email) }}" required>
-                            {{-- @error('email')
-                                <div class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror --}}
                         @else
                             <input type="email" class="form-control" value="{{ $user->email }}" readonly>
 
@@ -69,30 +59,17 @@
                         @endif
                     </div>
 
-
+                    {{-- Phần hiển thị thông tin vai trò (chỉ đọc cho tất cả) --}}
                     <div class="mb-3">
                         <label class="form-label">Vai trò:</label>
-                        @if (Auth::user()->role === 'admin')
-                            <select class="form-select @error('role') is-invalid @enderror" name="role" required>
-                                <option value="registered"
-                                    {{ old('role', $user->role) == 'registered' ? 'selected' : '' }}>
-                                    Registered</option>
-                                <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User
-                                </option>
-                                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin
-                                </option>
-                            </select>
-                            {{-- @error('role')
-                                <div class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror --}}
-                        @else
-                            <input type="text" class="form-control" value="{{ ucfirst($user->role) }}" readonly>
-                            <input type="hidden" name="role" value="{{ $user->role }}">
-                        @endif
+                        {{-- pluck(): để lấy ra tất cả các giá trị của một cột (hoặc một key) cụ thể từ một tập hợp các đối tượng (collection) --}}
+                        {{-- implode(): sử dụng ', ' (dấu phẩy và một khoảng trắng) làm chuỗi phân cách.
+                        VD: Kết quả sẽ là một chuỗi duy nhất: "Quản trị viên, Biên tập viên"
+                        --}}
+                        <input type="text" class="form-control"
+                            value="{{ Auth::user()->roles->pluck('display_name')->implode(', ') ?: 'Không có vai trò' }}"
+                            readonly>
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label">Giới tính:</label>
                         <select class="form-select @error('gender') is-invalid @enderror" name="gender">

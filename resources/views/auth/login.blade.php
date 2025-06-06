@@ -30,7 +30,9 @@
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-2">Đăng nhập</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mt-2">Đăng nhập</button>
+            </div>
         </form>
     </div>
 @endsection
