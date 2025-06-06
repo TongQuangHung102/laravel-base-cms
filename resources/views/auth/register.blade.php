@@ -14,15 +14,14 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <div class="card-header">{{ __('Đăng ký tài khoản') }}</div>
+                    <div class="card-header">{{ ('Đăng ký tài khoản') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-
                             {{-- Input cho Tên (Name) --}}
                             <div class="mb-3 row">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Tên') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ ('Tên') }}</label>
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
@@ -38,7 +37,7 @@
                             {{-- Input cho Tên đăng nhập (Username) --}}
                             <div class="mb-3 row">
                                 <label for="username"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Tên đăng nhập') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ ('Tên đăng nhập') }}</label>
                                 <div class="col-md-6">
                                     <input id="username" type="text"
                                         class="form-control @error('username') is-invalid @enderror" name="username"
@@ -54,7 +53,7 @@
                             {{-- Input cho Email --}}
                             <div class="mb-3 row">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ ('E-Mail') }}</label>
                                 <div class="col-md-6">
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
@@ -70,7 +69,7 @@
                             {{-- Input cho Mật khẩu (Password) --}}
                             <div class="mb-3 row">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Mật khẩu') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ ('Mật khẩu') }}</label>
                                 <div class="col-md-6">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
@@ -86,7 +85,7 @@
                             {{-- Input cho Xác nhận mật khẩu (Confirm Password) --}}
                             <div class="mb-3 row">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Xác nhận mật khẩu') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ ('Xác nhận mật khẩu') }}</label>
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required autocomplete="new-password">
@@ -97,7 +96,7 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-3 text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Đăng ký') }}
+                                        {{ ('Đăng ký') }}
                                     </button>
                                 </div>
                             </div>
