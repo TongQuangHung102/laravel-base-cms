@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\LoginService;
-
+use App\Models\User;
 class LoginController extends Controller
 {
     protected $loginService;
@@ -25,14 +25,18 @@ class LoginController extends Controller
         $credentials = $request->validated();
         $user = $this->loginService->attemptLogin($credentials);
         if ($user) {
-            if ($user->role === 'admin') {
-                return redirect()->intended('/admin/listuser');
-            } elseif ($user->role === 'user') {
-                return redirect()->intended('/page');
+            $loggedInUser = Auth::user(); 
+            if ($loggedInUser) {
+                if ($loggedInUser->hasRole('admin')) { 
+                    return redirect()->intended('/admin/listuser');
+                } 
+                elseif ($loggedInUser->hasRole('user')) { 
+                    return redirect()->intended('/page');
+                }
+                return redirect()->intended('/');
             }
-            return redirect()->intended('/');
         }
-        return redirect()->intended('/');
+        return redirect()->back()->withErrors(['credentials' => 'Thông tin đăng nhập không chính xác.']);
     }
 
     public function logout()

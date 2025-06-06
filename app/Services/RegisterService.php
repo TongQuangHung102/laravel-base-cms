@@ -23,8 +23,8 @@ class RegisterService
         // Mã hóa mật khẩu
         $data['password'] = Hash::make($data['password']);
         $user = $this->registerRepository->create($data);
-        // Tìm role mặc định có tên là 'User' trong bảng roles.
-        $defaultRole = Role::where('name', 'User')->first();
+        // Tìm role mặc định có tên là 'user' trong bảng roles.
+        $defaultRole = Role::where('name', 'user')->first();
 
         if ($defaultRole) {
             // Gắn role mặc định cho user bằng cách thêm 1 bản ghi vào bảng trung gian user_roles.
@@ -32,7 +32,7 @@ class RegisterService
             // Hoặc $user->roles()->syncWithoutDetaching([$defaultRole->id]);
             // syncWithoutDetaching dùng khi bạn muốn gắn thêm role mà không làm mất các role cũ nếu có.
         } else {
-            Log::error('Không tìm thấy vai trò mặc định "User" trong quá trình đăng ký người dùng.');
+            Log::error('Không tìm thấy vai trò mặc định "u  ser" trong quá trình đăng ký người dùng.');
         }
         return $user;
     }

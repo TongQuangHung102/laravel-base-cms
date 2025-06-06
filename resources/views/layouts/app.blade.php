@@ -104,7 +104,7 @@
                                 <a class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}"
                                     href="{{ route('posts.index') }}">{{ 'Post' }}</a>
                             </li>
-                            @if (Auth::check() && Auth::user()->role === 'admin')
+                            @if (Auth::check() && Auth::user()->hasRole('admin'))
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
                                         href="{{ route('users.listUser') }}">{{ 'User' }}</a>
