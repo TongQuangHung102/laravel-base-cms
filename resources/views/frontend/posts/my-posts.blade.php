@@ -12,7 +12,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        {{-- href="{{ route('pages.show') }}" --}}
+
         <div class="mb-3 text-end">
             <a class="btn btn-primary" href="{{ route('profile.show-add-form') }}">
                 <i class="bi bi-plus-circle-fill"></i> Tạo bài viết mới
@@ -55,7 +55,8 @@
                             <a href="{{ route('profile.my-post-show', $post->id) }}"
                                 class="btn btn-sm btn-success text-white">Chỉnh
                                 sửa</a>
-                            <form action="{{ route('pages.show', $post->id) }}" method="POST" style="display:inline;"
+                            <form action="{{ route('profile.forceDelete', $post->id) }}" method="POST"
+                                style="display:inline;"
                                 onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
                                 @csrf
                                 @method('DELETE')

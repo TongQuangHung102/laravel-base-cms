@@ -81,13 +81,18 @@ class PostController extends Controller
     {
         try {
             $data = $request->validated();
-            $data['user_id'] = Auth::id(); 
-            $post = $this->postService->createPost($data); 
-
-            return redirect()->route('profile.my-post-show', $post->id) 
+            $data['user_id'] = Auth::id();
+            $post = $this->postService->createPost($data);
+            return redirect()->route('profile.my-post-show', $post->id)
                 ->with('success', 'Bài viết đã được tạo thành công!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['create_failed' => 'Có lỗi xảy ra khi tạo bài viết: ' . $e->getMessage()])->withInput();
         }
+    }
+    public function forceDelete($id)
+    {
+        $post = Post::find($id);
+        $post->forceDelete();
+        return redirect()->route('profile.my-posts')->with('success', 'Bài viết đã bị xóa khỏi hệ thống!');
     }
 }
