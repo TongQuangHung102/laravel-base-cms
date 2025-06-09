@@ -55,18 +55,19 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="role" class="form-label">Vai trò:</label>
-                        <select class="form-select @error('role') is-invalid @enderror" id="role" name="role"
+                        <label for="role_id" class="form-label">Vai trò:</label>
+                        <select class="form-select @error('role_id') is-invalid @enderror" id="role_id" name="role_id"
                             required>
                             <option value="">Chọn vai trò</option>
-                            <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User
-                            </option>
-                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin
-                            </option>
-                            <option value="registered" {{ old('role', $user->role) == 'registered' ? 'selected' : '' }}>
-                                Registered</option>
+
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}"
+                                    {{ old('role_id', $user->roles->first()->id ?? null) == $role->id ? 'selected' : '' }}>
+                                    {{ $role->display_name }}
+                                </option>
+                            @endforeach
                         </select>
-                        @error('role')
+                        @error('role_id')
                             <div class="invalid-feedback">
                                 <strong>{{ $message }}</strong>
                             </div>
@@ -146,7 +147,7 @@
                         <a href="{{ route('users.listUser') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Quay lại
                         </a>
-                        
+
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save"></i> Cập nhật
                         </button>

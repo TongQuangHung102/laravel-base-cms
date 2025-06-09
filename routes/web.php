@@ -21,15 +21,45 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 // Route put: cập nhập toàn bộ thông tin; Route patch: cập nhập một phần 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/listuser', [UserController::class, 'index'])->name('users.listUser');
-    Route::get('/detailuser/{id}', [UserController::class, 'detail'])->name('users.detailUser');
-    Route::put('/updateuser/{id}', [UserController::class, 'update'])->name('users.updateUser');
+// Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+//     Route::get('/listuser', [UserController::class, 'index'])->name('users.listUser');
+//     Route::get('/detailuser/{id}', [UserController::class, 'detail'])->name('users.detailUser');
+//     Route::put('/updateuser/{id}', [UserController::class, 'update'])->name('users.updateUser');
 
-    Route::delete('/deleteuser/{id}', [UserController::class, 'softDelete'])->name('users.deleteSoftUser');
-    Route::get('/listtrash', [UserController::class, 'trash'])->name('users.trashUser');
-    Route::post('/restoreuser/{id}', [UserController::class, 'restore'])->name('users.restoreUser');
-    Route::delete('/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('users.forceDeleteUser');
+//     Route::delete('/deleteuser/{id}', [UserController::class, 'softDelete'])->name('users.deleteSoftUser');
+//     Route::get('/listtrash', [UserController::class, 'trash'])->name('users.trashUser');
+//     Route::post('/restoreuser/{id}', [UserController::class, 'restore'])->name('users.restoreUser');
+//     Route::delete('/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])->name('users.forceDeleteUser');
+// });
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/listuser', [UserController::class, 'index'])
+        ->name('users.listUser')
+        ->middleware('permission:users.view');
+
+    Route::get('/detailuser/{id}', [UserController::class, 'detail'])
+        ->name('users.detailUser')
+        ->middleware('permission:users.view');
+
+    Route::put('/updateuser/{id}', [UserController::class, 'update'])
+        ->name('users.updateUser')
+        ->middleware('permission:users.edit');
+
+    Route::delete('/deleteuser/{id}', [UserController::class, 'softDelete'])
+        ->name('users.deleteSoftUser')
+        ->middleware('permission:users.delete_soft');
+
+    Route::get('/listtrash', [UserController::class, 'trash'])
+        ->name('users.trashUser')
+        ->middleware('permission:users.view_trash');
+
+    Route::post('/restoreuser/{id}', [UserController::class, 'restore'])
+        ->name('users.restoreUser')
+        ->middleware('permission:users.restore');
+
+    Route::delete('/forcedeleteuser/{id}', [UserController::class, 'forceDelete'])
+        ->name('users.forceDeleteUser')
+        ->middleware('permission:users.force_delete');
 });
 
 

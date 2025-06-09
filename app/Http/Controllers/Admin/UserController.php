@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Services\UserService;
 use App\Http\Requests\Admin\UserRequest;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -28,7 +29,9 @@ class UserController extends Controller
     public function detail($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.detailuser', compact('user'));
+        $user->load('roles');
+        $roles = Role::all();
+        return view('admin.detailuser', compact('user', 'roles'));
     }
 
     public function update(UserRequest $request, $id)

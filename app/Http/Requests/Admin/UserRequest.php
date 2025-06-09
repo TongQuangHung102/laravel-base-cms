@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'role' => 'required|string|in:user,admin',
+            'role_id' => ['required', 'exists:roles,id'],
             'gender' => 'nullable|string|in:male,female,other',
             'birthdate' => 'nullable|date',
             'address' => 'nullable|string|max:255',
