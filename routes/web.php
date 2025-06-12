@@ -62,16 +62,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         ->middleware('permission:users.force_delete');
 });
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/post/my-posts', [PostController::class, 'myPosts'])->name('profile.my-posts');
+    Route::get('/post/my-posts/{id}', [PostController::class, 'myPostShow'])->name('profile.my-post-show');
+    Route::put('/post/update-post/{id}', [PostController::class, 'updatePost'])->name('profile.update-post');
+    Route::get('/post/add-post', [PostController::class, 'showAddForm'])->name('profile.show-add-form');
+    Route::post('/post/add-post', [PostController::class, 'store'])->name('profile.store');
+    Route::delete('post/deletepost/{id}', [PostController::class, 'forceDelete'])->name('profile.forceDelete');
+});
 Route::get('/page', [PageController::class, 'index'])->name('pages.index');
 Route::get('/page/{id}', [PageController::class, 'show'])->name('pages.show');
-
-Route::get('/post/my-posts', [PostController::class, 'myPosts'])->name('profile.my-posts');
-Route::get('/post/my-posts/{id}', [PostController::class, 'myPostShow'])->name('profile.my-post-show');
-Route::put('/post/update-post/{id}', [PostController::class, 'updatePost'])->name('profile.update-post');
-Route::get('/post/add-post', [PostController::class, 'showAddForm'])->name('profile.show-add-form');
-Route::post('/post/add-post', [PostController::class, 'store'])->name('profile.store');
-Route::delete('post/deleteuser/{id}', [PostController::class, 'forceDelete'])->name('profile.forceDelete');
 
 Route::get('/post', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
